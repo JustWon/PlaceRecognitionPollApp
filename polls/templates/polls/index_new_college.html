@@ -1,0 +1,32 @@
+{%  load staticfiles %}
+
+{% if latest_question_list %}
+    <form action="{% url 'new_college_results'%}" method="post">
+        {% csrf_token %}
+        <ul>
+        Do you think that the pictures are taken on the same place?
+        <br><br>
+        {% for question in latest_question_list %}
+            <li>{{ forloop.counter }}</a></li>
+            <img src = {% static question.0 %} width="320" height="240">
+            <img src = {% static question.1 %} width="320" height="240">
+            <br><br>
+
+            <label><input type="radio" name='choice{{ forloop.counter }}' value="Yes" id="choice{{ forloop.counter }}" /> Yes </label>
+            <label><input type="radio" name='choice{{ forloop.counter }}' value="No" id="choice{{ forloop.counter }}"/> No </label>
+
+            <br><br>
+        {% endfor %}
+        </ul>
+        <label>submitter:</label>
+        <input type="text" name='submitter' required/>
+
+        <input type="submit" value="Submit" />
+    </form>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+
+
+
